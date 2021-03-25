@@ -34,3 +34,15 @@ jobs:
           yarn --frozen-lockfile
       - name: Run unit tests
         run: rails test
+
+  build-push:
+    runs-on: self-hosted
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Login to Registry
+        run: cat ~/github-actions-runner/TOKEN.txt | docker login https://docker.pkg.github.com -u aalepis --password-stdin
+      - name: Build image
+        run: docker build -t docker.pkg.github.com/aalepis/superci/superci:latest .
+      - name: Push image to registry
+        run: docker push docker.pkg.github.com/aalepis/superci/superci:latest
