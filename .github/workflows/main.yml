@@ -31,7 +31,7 @@ jobs:
           bundle install --no-deployment --jobs 4 --retry 3
           bundle exec rails db:create
           bundle exec rails db:migrate
-          yarn --frozen-lockfile
+          # yarn --frozen-lockfile
       - name: Run unit tests
         run: rails test
 
